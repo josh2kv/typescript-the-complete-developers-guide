@@ -87,24 +87,92 @@
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt
     ```
 
-```ts
-   constructor(public collection: number[] | string | LinkedList) {}
+- 범용성있게 refactoring하기
+  - before
 
-   sort(): void {   
-    if(this.collection instanceof LinkedList) {
-      // ~~~
-    }
+    ```ts
+    export class Sorter {
+      constructor(public collection: number[] | string | LinkedList) {}
 
-    if(this.collection instanceof Array) {
-      if (this.collection[j] > this.collection[j + 1]) {
-        const leftHand = this.collection[j];
-        this.collection[j] = this.collection[j + 1];
-        this.collection[j + 1] = leftHand;
+      sort(): void {   
+        if(this.collection instanceof LinkedList) {
+          // ~~~
+        }
+
+        if(this.collection instanceof Array) {
+          if (this.collection[j] > this.collection[j + 1]) {
+            const leftHand = this.collection[j];
+            this.collection[j] = this.collection[j + 1];
+            this.collection[j + 1] = leftHand;
+          }
+        }
+        
+        if(typeof this.collection === 'string') {
+          // ~~~
+        }
       }
     }
-    
-    if(typeof this.collection === 'string') {
+
+    const numbers = new NumbersCollection([10000, 3, -5, 0]);
+    const numbersSorter = new Sorter(numbers)
+    numbersSorter.sort();  
+    ```
+
+  - after
+
+    ```ts
+    export abstract class Sorter {
+      sort(): void {
+        // ~~~
+      }
+    }
+
+    export class NumbersCollection extends Sorter {
+      constructor(public data: number[]) {
+        super();
+      }
+
       // ~~~
     }
+
+    export class CharactersCollection extends Sorter {
+      constructor(public data: string) {
+        super();
+      }
+
+      // ~~~
+    }
+
+    export class LinkedList extends Sorter {
+      // ~~~
+    }
+
+    const numbers = new NumbersCollection([10000, 3, -5, 0]);
+    numbers.sort();
+    ```
+
+- 부모 class에서 자신이 가지고 있지 않은 자식 class의 member를 사용하는 경우
+  - `abstract`를 사용하여 자식 class에서 나중에 해당 member가 제공될 것을 약속함
+
+  ```ts
+  export abstract class Sorter {
+    abstract compare(leftIndex: number, rightIndex: number): boolean;
+    abstract swap(leftIndex: number, rightIndex: number): void;
+    abstract length: number;
+
+    sort(): void {
+      const { length } = this;
+
+      for (let i = 0; i < length; i++) {
+        for (let j = 0; j < length - i - 1; j++) {
+          if (this.compare(j, j + 1)) {
+            this.swap(j, j + 1);
+          }
+        }
+      }
+    }
   }
-```
+  ```
+
+- Interfaces VS Abstract Classes
+![Interfaces VS Abstract Classes](img/Interfaces_vs_Abstract_Classes.jpg)
