@@ -176,3 +176,45 @@
 
 - Interfaces VS Abstract Classes
 ![Interfaces VS Abstract Classes](img/Interfaces_vs_Abstract_Classes.jpg)
+
+## Stats
+
+- nodeJS standard lib를 사용할 때도 type definition file 필요 -> `@types/node`
+
+- `enum` 사용하기
+  - 종류가 한정되어 있고(변하지 않고) 너무 많지 않은 경우 사용
+
+  ```ts
+    match[5] === 'H'
+    match[5] === 'A'
+
+    🔽
+
+    const HomeWin = 'H'
+    const AwayWin = 'A'
+    const Draw = 'D'
+    match[5] === HomeWin
+    match[5] === AwayWin
+
+    🔽
+    
+    const MatchResult = {
+      HomeWin: 'H'
+      AwayWin: 'A'
+      Draw: 'D'
+    }
+    match[5] === MatchResult.HomeWin
+    match[5] === MatchResult.AwayWin
+
+    🔽
+
+    enum MatchResult {
+      HomeWin = 'H'
+      AwayWin = 'A'
+      Draw = 'D'
+    }
+    match[5] === MatchResult.HomeWin
+    match[5] === MatchResult.AwayWin
+  ```
+
+- ![When_to_Use_Enums](stats/img/When_to_Use_Enums.jpg)
