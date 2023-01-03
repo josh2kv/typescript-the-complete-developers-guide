@@ -182,7 +182,7 @@
 - nodeJS standard lib를 사용할 때도 type definition file 필요 -> `@types/node`
 
 - `enum` 사용하기
-  - 종류가 한정되어 있고(변하지 않고) 너무 많지 않은 경우 사용
+  - 목록이 한정되어 있고(변하지 않고) 너무 많지 않은 경우 사용
 
   ```ts
     match[5] === 'H'
@@ -218,3 +218,11 @@
   ```
 
 - ![When_to_Use_Enums](stats/img/When_to_Use_Enums.jpg)
+
+> *Favor object composition over class inheritance*
+>
+> Design Patterns, page 20
+>
+> object composition은 여러 object를 합쳐서 하나의 object를 만드는 것이 아니라 multiple inheritance를 의미함
+
+### Variable named after a specific team
