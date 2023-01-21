@@ -217,12 +217,52 @@
     match[5] === MatchResult.AwayWin
   ```
 
-- ![When_to_Use_Enums](stats/img/When_to_Use_Enums.jpg)
+  ![When_to_Use_Enums](stats/img/When_to_Use_Enums.jpg)
 
-> *Favor object composition over class inheritance*
->
-> Design Patterns, page 20
->
-> object composition은 여러 object를 합쳐서 하나의 object를 만드는 것이 아니라 multiple inheritance를 의미함
+  > *Favor object composition over class inheritance*
+  >
+  > Design Patterns, page 20
+  >
+  > object composition은 여러 object를 합쳐서(copy-and-paste) 하나의 object를 만드는 multiple inheritance를 의미하는 것이 아님
 
-### Variable named after a specific team
+- Composition: **has a** relationship between two classes
+  - cf) Inheritance: **is a** relationship between two classes
+  - 같은 종류의 다른 class로 쉽게 교체 가능한 class의 일부분
+  ![More_on_Inheritance_vs_Composition](stats/img/More_on_Inheritance_vs_Composition.jpg)
+<https://stackoverflow.com/questions/27572886/how-is-composition-different-than-multiple-inheritance>
+
+### Generic Constraints
+
+- Generic 사용시 일부 충족해야하는 property나 method가 Generic에 포함되어야 한다면 `extends`로 `interface`를 추가해야 함
+
+  ```ts
+  class Car {
+    print() {
+      console.log('I am a car');
+    }
+  }
+  class House {
+    print() {
+      console.log('I am a house');
+    }
+  }
+
+  function printHousesOrCars<T>(arr: T[]): void {
+    for (let i = 0; i < arr.length; i++) {
+      // Error: Property 'print' does not exist on type.
+      // T에 print()가 없을 수도 있으니 허용하지 않음
+      arr[i].print()
+    }
+  }
+
+  interface Printable {
+    print(): void 
+  }
+
+  function printHousesOrCars<T extends Printable>(arr: T[]): void {
+    for (let i = 0; i < arr.length; i++) {
+      // Error: Property 'print' does not exist on type.
+      arr[i].print()
+    }
+  }
+  ```

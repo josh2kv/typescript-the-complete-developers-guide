@@ -2,6 +2,11 @@ import { NumbersCollection } from './NumbersCollection';
 import { CharactersCollection } from './CharactersCollection';
 import { LinkedList } from './LinkedList';
 
+
+/**
+ * array of number, string and linked list를 정렬할 수 있는 app
+ */
+
 const numbers = new NumbersCollection([10000, 3, -5, 0]);
 numbers.sort();
 console.log(numbers.data);
