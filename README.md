@@ -266,3 +266,13 @@
     }
   }
   ```
+
+## Web Framework
+
+- object를 통째로 받아 set하는 방법
+
+  ```ts
+    set(update: UserProps): void {
+      Object.assign(this.data, update);
+    }
+  ```
