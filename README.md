@@ -276,3 +276,11 @@
       Object.assign(this.data, update);
     }
   ```
+
+- argument로 받는 object의 key에 따라 return type을 정하는 방법
+
+  ```ts
+    get<K extends keyof T>(key: K): T[K] {
+      return this.data[key];
+    }
+  ```
