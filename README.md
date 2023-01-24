@@ -284,3 +284,18 @@
       return this.data[key];
     }
   ```
+
+- composition 한 하위 instance의 method로 redirection하기
+
+- `this`가
+
+    ```ts
+    get<K extends keyof T>(key: K): T[K] {
+      return this.data[key];
+    }
+
+    get = <K extends keyof T>(key: K): T[K] => {
+      return this.data[key];
+    }
+
+  ```
